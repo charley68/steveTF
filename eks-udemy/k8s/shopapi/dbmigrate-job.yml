@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: Job
+
+metadata:
+  name: shopapi-job-dbc
+  labels:
+    app: shopapi-dbm
+
+spec:
+  template:
+    metadata:
+      labels:
+        group: shopapi-dbm
+    spec:
+      containers:
+      - name: shopapi-dbm
+        image: devteds/demo-bookstore-shopapi:1.0
+        imagePullPolicy: Always
+        command: ["bundle", "exec", "rails", "db:migrate"]
+        envFrom:
+          - configMapRef:
+              name: shopapi-cm
+
+        env:
+          - name: DB_PASSWORD
+            valueFrom:
+             secretKeyRef:
+              name: shopapi-sec
+              key: DB_PASSWORD
+      restartPolicy: Never
+  backoffLimit: 4

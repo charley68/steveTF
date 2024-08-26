@@ -1,0 +1,28 @@
+# Devteds Course Materials. Find more at https://www.devteds.com/k8s
+
+
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: shopui
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: shopui
+
+  template:
+    metadata:
+      labels:
+        app: shopui
+    spec:
+      containers:
+      - name: shopui
+        image: devteds/demo-bookstore-shopui:1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+

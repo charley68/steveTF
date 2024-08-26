@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shopapi
+spec:
+  selector:
+    matchLabels:
+      app: shopapi
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: shopapi
+    spec:
+      containers:
+      - name: shopapi
+        image: devteds/demo-bookstore-shopapi:1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+        envFrom:
+          - configMapRef:
+              name: shopapi-cm
+
+        env:
+          - name: DB_PASSWORD
+            valueFrom:
+             secretKeyRef:
+              name: shopapi-sec
+              key: DB_PASSWORD
+
+        # env:
+        # - name: DB_USER
+        #   value: appuser
+        # - name: DB_NAME
+        #   value: bookstore
+        # - name: DB_PASSWORD
+        #   value: apppassword
+        # - name: RAILS_ENV
+        #   value: production
+        # - name: RAILS_LOG_TO_STDOUT
+        #   value: "1"
+        # - name: DB_HOST
+        #   value: terraform-20240424111030450100000001.c10kuc2ymwcy.eu-west-2.rds.amazonaws.com

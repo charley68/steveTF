@@ -1,0 +1,10 @@
+
+
+this was taken from this page:  https://medium.com/@i.mani/deploying-wordpress-on-aws-with-rds-using-terraform-and-docker-c17f2b7ab0d8
+
+
+
+docker-compose -f docker-compose-local.yml up  
+and run with  localhost
+
+

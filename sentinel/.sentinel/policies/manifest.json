@@ -1,0 +1,10 @@
+{
+	"records": [
+		{
+			"key": "sample",
+			"source": "./sample.sentinel",
+			"sourceSum": "",
+			"dest": "/Users/stephenlane/Develop/tf/sentinel/sample.sentinel"
+		}
+	]
+}

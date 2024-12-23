@@ -5,6 +5,9 @@
 *.tfstate
 *.tfstate.*
 
+**/lambda.zip
+*.terraform.lock.hcl
+
 .DS_Store
 *.pem
 *.key

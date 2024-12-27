@@ -80,7 +80,7 @@ def update_or_create_alias_with_permissions(api_gateway_arn, alias_name="prod"):
         print(f"Failed to process function {function_name}: {e}")
 
 if __name__ == "__main__":
-    api_name = "steve-api"  # Set API Gateway name to "hello-world-api"
+    api_name = "steveAPI"  # Set API Gateway name to "hello-world-api"
 
     # Get the list of API Gateway endpoints
     endpoints = get_api_gateway_endpoints(api_name)

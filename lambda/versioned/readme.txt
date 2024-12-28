@@ -15,7 +15,49 @@ The APIGateway references this variable dynamically as $${stageVariables.lambdaA
 Now you can run the following for stage "pre-prod" and stage "prod" and each should point to a different version of the lamnda.
 
 
-curl https://azzz5lg7te.execute-api.eu-west-2.amazonaws.com/pre-prod/hello-world
-curl https://azzz5lg7te.execute-api.eu-west-2.amazonaws.com/prod/hello-world 
+MODULES
+
+I recreted this using modules.  One for APIGateway and one for Lambda.  A single module now creates all the Lambdas.  Not sure if tis is good design or not -possibly not.
+
+ie now you can do:
+
+module "lambdas" {
+  source               = "./modules/lambda"
+
+  functions = [
+        {function_name = "goodbye-world", function_src = "${path.module}/lambda/lambda2", gateway_arn = "${module.apigateway.execution_arn}/*/GET/goodbye-world"},
+        {function_name = "hello-world", function_src = "${path.module}/lambda/lambda1", gateway_arn = "${module.apigateway.execution_arn}/*/GET/hello-world"}
+  ]
+
+
+but maybe better was what i had before which was:
+
+
+module "hello_world_lambda" {
+  source               = "./modules/lambda"
+
+  function_name        = "hello-world"
+  source_dir           = "${path.module}/lambda/lambda1"
+  alias_name           = "preProd"
+  apigateway_arn       = "${module.apigateway.execution_arn}/*/GET/hello-world"
+
+  role_arn             = aws_iam_role.lambda_role.arn
+  tags                 = { Name = "Steve-lambda" }
+}
+
+module "goodbye_world_lambda" {
+  source               = "./modules/lambda"
+
+  function_name        = "goodbye-world"
+  source_dir           = "${path.module}/lambda/lambda2"
+  alias_name           = "preProd"
+  apigateway_arn       = "${module.apigateway.execution_arn}/*/GET/goodbye-world"
+
+  role_arn             = aws_iam_role.lambda_role.arn
+  tags                 = { Name = "Steve-lambda" }
+}
+
+
+
 
 

@@ -1,8 +1,4 @@
 
-variable "function_name" {
-  description = "Name of the Lambda function."
-  type        = string
-}
 
 variable "role_arn" {
   description = "IAM Role ARN for the Lambda function."
@@ -45,18 +41,23 @@ variable "principal" {
   default     = "apigateway.amazonaws.com"
 }
 
-variable "apigateway_arn" {
-  description = "Source ARN for API Gateway."
-  type        = string
-}
 
-variable "source_dir" {
-  description = "Source directory containing the Lambda function code."
-  type        = string
-}
 
 variable "environment_vars" {
   description = "Optional env vars to set for the lambda"
   type = map(string)
   default = {}
+}
+
+
+
+variable "functions" {
+  description = "List of functions"
+  type = list(
+    object({
+      function_name   = string
+      function_src = string
+      gateway_arn  = string
+    })
+  )
 }

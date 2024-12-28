@@ -7,7 +7,7 @@ module "apigateway" {
     zone_id = "Z00347011S1MYBDO0EHRL"
 
     api_routes = [
-        {path_part = "hello-world", http_method = "GET", lambda_arn = module.hello_world_lambda.lambda_arn},
-        {path_part = "goodbye-world", http_method = "GET", lambda_arn = module.goodbye_world_lambda.lambda_arn}
+        {path_part = "hello-world", http_method = "GET", lambda_arn = module.lambdas.lambda_arn["hello-world"]},
+        {path_part = "goodbye-world", http_method = "GET", lambda_arn = module.lambdas.lambda_arn["goodbye-world"]}
     ]
 }
